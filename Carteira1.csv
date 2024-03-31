@@ -1,0 +1,5 @@
+id_movimentacao,titulo,data,valor,categoria,tipo
+0001,Show no Arena,2024-03-28 15:00:12+00:00,60,show,entrada
+0002,Show no Albatroz,2024-03-29 15:00:12+00:00,50,show,entrada
+0003,Teclado e Mouse,2024-03-30 15:00:12+00:00,100,eletronicos,saida_variavel
+0004,Assaí compras,2024-03-30 15:00:12+00:00,50,alimentacao,saida
