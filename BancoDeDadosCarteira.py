@@ -31,7 +31,7 @@ class BancoDadosCateira:
         '''
 
         try:
-            print(f'Abrindo arquivo {nome_arq}')
+            # print(f'Abrindo arquivo {nome_arq}')
             self._nome = nome_arq
             self._df = pd.read_csv(nome_arq)
         except FileNotFoundError as err:
