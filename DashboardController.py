@@ -5,6 +5,11 @@ from BancoDeDadosCarteira import BancoDadosCateira
 from Widget import Widget
 import datetime as dt
 
+# To-do:
+# [ ] Pegar a entrada de dados e adicionar no modelo e na TreeView
+# [ ] Escrever os dados no banco de dados
+# [ ] Atualizar a TreeView
+
 class DashboardController:
     '''
     Controlador: informa ao Modelo as operações a serem realizadas
@@ -35,18 +40,22 @@ class DashboardController:
         self._cria_widgets()
         for w in self._widgets:
             self.view.draw_basic_widget(w.width, w.height, w.x0, w.y0, w.x1, w.y1, w.widget_type, w.value)
-        self.atualiza_relogio()
+        self._atualiza_relogio()
 
-        self.view.botao1['command'] = self._processa_entrada
+        self.view.botao1['command'] = self._processa_dados_bd
         self.view.root.bind('<Configure>', self._atualiza_widget)
-        # formato de uma função lambda "lambda event: self._processa_entrada()""
+        self.view.botao2['command'] = self.view.try_draw_entrada_dados
+        # self.view.janela.protocol("WM_DELETE_WINDOW", self.view.on_closing_window)
+        # formato de uma função lambda "lambda event: self._processa_dados_bd()""
 
-    def atualiza_relogio(self):
+        # combobox.bind('<<ComboboxSelected>>', callback)
+
+    def _atualiza_relogio(self):
         now = dt.datetime.now()
         w = self._widgets[3]
         w.value = now.strftime('%H:%M:%S')
         self.view.draw_basic_widget(w.width, w.height, w.x0, w.y0, w.x1, w.y1, w.widget_type, w.value)
-        self.view.root.after(1000, self.atualiza_relogio)
+        self.view.root.after(1000, self._atualiza_relogio)
 
     def _cria_widgets(self):
         # armazena o tamanho da janela
@@ -91,7 +100,16 @@ class DashboardController:
             w.calculate_position(self._widgets.index(w), width, height)
             self.view.draw_basic_widget(w.width, w.height, w.x0, w.y0, w.x1, w.y1, w.widget_type, w.value)
 
-    def _processa_entrada(self):
+    def _processa_entrada_dados(self):
+        pass
+
+    def _escreve_dados_no_bd(self):
+        pass
+
+    def _atualiza_dados(self):
+        pass
+
+    def _processa_dados_bd(self):
         bd = BancoDadosCateira('Carteira1.csv')
         res = bd.todos()
         self.model.movimentacoes = res
